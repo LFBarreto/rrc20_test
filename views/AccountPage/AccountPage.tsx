@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { ledgerEthUtils } from '../../utils';
 import walletsActions from '../../store/actions/wallets';
 import moment from 'moment';
+import Loading from '../Loading/Loading';
 
 const ARROW_IMG = {
     OUT: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAALGSURBVHic7dm/btNQFMfx3zFi4A1YWVlYQeqIEEiFAu+R2EhNnK1hI2IgTh+maVNKpSzwCKy8QwgsuSw5ENokx76+f5zofNf4Xh19JMe+CdCgskHRTz8OP8SeY7U7sQfgskHRN4QTgA4eP3t+79tkfBl7JqAhQP9wuOYgRQe6jcM1Aykq0GYcLj5SNCAZh4uLFAWoPA4XDyk4UHUcLg5SUCB7HC48UjCg+jhcWKQgQO5wuHBI3oHc43BhkLwC+cPh/CN5A/KPw/lF8gIUDofzh+QcKDwO5wfJKVA8HM49kjMgC5w5YKYAPdh+mbkC6D6Au+W2pYMnT1/Q18vxdYVZNpa42MQGJyF6RYam0oVkaApjjgDMy25uCCeufpmsDWSL86nTLn0bFHk2qYoEQ7kLpFpAIXC4WEjWQCFxuBhIVkAWOD/r4nChkSoD2eAYAyc4XJFnkwXoNQIgVQKyxRnl6eeKc4mddtsXS6RfpRdZIJUGahIOt0Q6gkekUkBNxOF8I4lANjhEycsQOJxPpK1AtjjDTuuqwhon+ULaCLRLONxpt32BhXH6xb0WaBdxuKKXnbtEugW0yzicS6T/gPYBh3OF9BfI8lF+2EQcruhl5wZ4gxpICWCPM8rTLxXWRGnUTcd1kJJ9xuHqICUGVP7At4M4nA2SAc2TIm8PYKhX4vqdxeGqIBlCf9RJ3ycAUAJp53G4MkiMA6w8xbYgzfYFh9uGtIoD3HgPWoM0I1rsFQ436qZjSpK3WEG6iQOseZNeQZoRLQ6HnXfX3qeN1PC4dbZE+r0OB9hwFivy9gALPNxnHG543DqDMY/W4QBbTvNFL/3hb6xmVeTZ902fOflndZ9TICEFElIgIQUSUiAhBRJSICEFElIgIQUSUiAhBRJSICEFElIgIQUSUiAhBRJSICEFElIgIQUSUiAhBRJSICEFElIgoT8WUhyXaTz5ZAAAAABJRU5ErkJggg==',
@@ -86,7 +87,7 @@ function AccountPage({ counterValues, account: { balance, txs, tokens } }) {
         }
     });
 
-    return (
+    const page = !formattedBalance ? <Loading /> : (
         <Animated.View style={{ ...styles.container, opacity: fadeAnim }}>
             <View style={styles.titleBlock}>
                 <Text style={[styles.title, styles.mainTitle]}>ETH {formattedBalance.toLocaleString()}</Text>
@@ -109,6 +110,8 @@ function AccountPage({ counterValues, account: { balance, txs, tokens } }) {
             </View>
         </Animated.View>
     );
+
+    return page
 }
 
 AccountPage.navigationOptions = ({ navigation }) => {

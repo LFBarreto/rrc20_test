@@ -46,9 +46,10 @@ export default function walletsReducer(state = initialStateWallets, action) {
         case SET_ACCOUNT_TXS: {
             const newState = Immutable(state);
             const { address, txs, truncated, tokens } = action.payload;
+            const lastHash = txs.length ? txs[0].hash : null
             return Immutable
                     .setIn(newState, [address, 'txs'], txs)
-                    .setIn([address, 'lastBlockHash'], txs[0].hash)
+                    .setIn([address, 'lastBlockHash'], lastHash)
                     .setIn([address, 'tokens'], tokens)
                     .setIn([address, 'loading'], truncated);
         }

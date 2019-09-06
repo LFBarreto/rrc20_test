@@ -25,6 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Ledger frontend-mobile-erc20",
+    "githubUrl": "https://github.com/LFBarreto/erc20_test"
   }
 }
