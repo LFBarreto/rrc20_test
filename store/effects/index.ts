@@ -1,0 +1,1 @@
+export { default as WalletsEffects } from './wallets.effects';
