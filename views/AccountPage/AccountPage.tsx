@@ -55,10 +55,10 @@ function AccountPage({ counterValues, account: { balance, txs, tokens } }) {
             const counter = counterValues[key] || { EUR: 0, USD: 0 };
             return {
                 key,
-                balance: balance.toLocaleString(),
+                balance: balance.toFixed(3),
                 counterValues: {
-                    EUR: (counter.EUR * balance).toLocaleString(),
-                    USD: (counter.USD * balance).toLocaleString()
+                    EUR: (counter.EUR * balance).toFixed(3),
+                    USD: (counter.USD * balance).toFixed(3)
                 }
             }
         });
@@ -67,9 +67,9 @@ function AccountPage({ counterValues, account: { balance, txs, tokens } }) {
         const counter = counterValues[symbol] || { EUR: 0, USD: 0 };
         const formatedValue = ledgerEthUtils.formatValue(value, magnitude)
         return {
-            ...tx, symbol, value: formatedValue.toLocaleString(), counterValues: {
-                EUR: (counter.EUR * formatedValue).toLocaleString(),
-                USD: (counter.USD * formatedValue).toLocaleString()
+            ...tx, symbol, value: formatedValue.toFixed(3), counterValues: {
+                EUR: (counter.EUR * formatedValue).toFixed(3),
+                USD: (counter.USD * formatedValue).toFixed(3)
             }
         }
     });
@@ -90,8 +90,8 @@ function AccountPage({ counterValues, account: { balance, txs, tokens } }) {
     const page = !formattedBalance ? <Loading /> : (
         <Animated.View style={{ ...styles.container, opacity: fadeAnim }}>
             <View style={styles.titleBlock}>
-                <Text style={[styles.title, styles.mainTitle]}>ETH {formattedBalance.toLocaleString()}</Text>
-                <Text style={[styles.title]}>${ethBalance.USD.toLocaleString()}</Text>
+                <Text style={[styles.title, styles.mainTitle]}>ETH {formattedBalance.toFixed(3)}</Text>
+                <Text style={[styles.title]}>${ethBalance.USD.toFixed(3)}</Text>
             </View>
 
             <View style={styles.listTokens}>
